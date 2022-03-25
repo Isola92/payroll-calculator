@@ -8,7 +8,8 @@
     "dev": "esbuild ./src/App.tsx --bundle --outfile=/bin/app.js --servedir=./bin  --sourcemap",
     "cypress-open": "node_modules\\.bin\\cypress open",
     "cypress-run": "node_modules\\.bin\\cypress run",
-    "ci-test": "start-server-and-test dev http-get://localhost:8000 cypress-run",
+    "cypress-run-nonwindows": "node_modules/.bin/cypress run",
+    "ci-test": "start-server-and-test dev http-get://localhost:8000 cypress-run-nonwindows",
     "test": "jest ./src"
   },
   "keywords": [
