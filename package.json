@@ -9,7 +9,7 @@
     "cypress-open": "node_modules\\.bin\\cypress open",
     "cypress-run": "node_modules\\.bin\\cypress run",
     "cypress-run-nonwindows": "node_modules/.bin/cypress run",
-    "ci-test": "start-server-and-test dev http-get://localhost:8000 cypress-run-nonwindows",
+    "ci-test": "start-server-and-test dev http-get://localhost:8000 cypress-run",
     "test": "jest ./src"
   },
   "keywords": [
