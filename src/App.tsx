@@ -2,6 +2,8 @@ import React from "react";
 import { render } from "react-dom";
 import { Form } from "./views/Form";
 
+console.info("Deployed from CI");
+
 const App = () => {
   return (
     <>
