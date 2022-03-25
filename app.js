@@ -20634,6 +20634,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
 
   // src/App.tsx
+  console.info("Deployed from CI");
   var App = () => {
     return /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("main", null, /* @__PURE__ */ import_react6.default.createElement("h1", null, "L\xF6neber\xE4knaren"), /* @__PURE__ */ import_react6.default.createElement(Form, null)), /* @__PURE__ */ import_react6.default.createElement("footer", null, "Olof Lindell"));
   };
