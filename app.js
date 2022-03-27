@@ -20435,7 +20435,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   }) => {
     return /* @__PURE__ */ import_react.default.createElement("select", {
       className: `drop-down ${className}`,
-      name: entityKey,
+      "aria-label": name,
       "data-test-id": testId,
       onChange: (e) => {
         onChange({
@@ -20462,7 +20462,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     onKeyUp,
     type = "text",
     testId,
-    className
+    className,
+    placeHolder,
+    name
   }) => {
     return /* @__PURE__ */ import_react2.default.createElement("input", {
       type,
@@ -20474,56 +20476,62 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           value: e.currentTarget.value
         });
       },
-      placeholder: "\xC5rs erfarenhet",
-      name: entityKey,
+      placeholder: placeHolder,
+      "aria-label": name,
       required: true,
       "data-test-id": testId
     });
   };
 
-  // src/data/TransactionTierMaxValues.ts
-  var splitSalary = (salary) => {
-    if (salary >= 45e3 /* Mid */) {
-      return [
-        35999 /* Lower */,
-        45e3 /* Mid */ - 35999 /* Lower */,
-        salary - 45e3 /* Mid */
-      ];
-    }
-    if (salary >= 35999 /* Lower */ && salary <= 45e3 /* Mid */) {
-      return [35999 /* Lower */, salary - 35999 /* Lower */, 0];
-    }
-    return [salary, 0, 0];
-  };
-
-  // src/data/SalaryRates.ts
+  // src/constants/SalaryRates.ts
   var SALARY_RATES = {
     Kassabitr\u00E4de: 25e3,
     L\u00E4rare: 27e3,
     Programmerare: 3e4
   };
-  var getSalaryIncreaseRate = (experience) => {
-    if (experience <= 3) {
-      return 1;
-    }
-    if (experience <= 7) {
-      return 1.2;
-    }
-    if (experience <= 10) {
-      return 1.4;
-    }
-    return 1.6;
-  };
 
-  // src/data/TaxationRates.ts
+  // src/constants/TaxationRates.ts
   var TAXATION_RATES = {
     G\u00F6teborg: {
       [2019]: 0.25,
-      [2020]: 0.29
+      [2020]: 0.22
     },
     Stockholm: {
       [2019]: 0.3,
       [2020]: 0.29
+    }
+  };
+
+  // src/helpers/SalaryHelper.ts
+  var SalaryHelper = class {
+    static splitSalary(salary) {
+      if (salary > 45e3 /* Mid */) {
+        return [
+          36e3 /* Lower */,
+          45e3 /* Mid */ - 36e3 /* Lower */,
+          salary - 45e3 /* Mid */
+        ];
+      }
+      if (salary > 36e3 /* Lower */ && salary <= 45e3 /* Mid */) {
+        return [
+          36e3 /* Lower */,
+          salary - 36e3 /* Lower */,
+          0
+        ];
+      }
+      return [salary, 0, 0];
+    }
+    static getSalaryIncreaseRate(experience) {
+      if (experience <= 3) {
+        return 1;
+      }
+      if (experience <= 7) {
+        return 1.2;
+      }
+      if (experience <= 10) {
+        return 1.4;
+      }
+      return 1.6;
     }
   };
 
@@ -20554,11 +20562,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   var calculateSalaryAfterTaxes = (city, year, profession, experience) => {
     const taxationRate = TAXATION_RATES[city][year];
-    const salaryRate = SALARY_RATES[profession];
-    const salaryIncreaseRate = getSalaryIncreaseRate(experience);
-    const salary = salaryRate * salaryIncreaseRate;
-    const [baseSalary, midSalary, upperSalary] = splitSalary(salary);
-    return Math.round(baseSalary * (1 - taxationRate) + midSalary * 0.5 + upperSalary * 0.7);
+    const baseSalary = SALARY_RATES[profession];
+    const salaryIncreaseRate = SalaryHelper.getSalaryIncreaseRate(experience);
+    const salary = baseSalary * salaryIncreaseRate;
+    const salaryAfterBaseTax = salary * (1 - taxationRate);
+    const [lowerSalary, midSalary, upperSalary] = SalaryHelper.splitSalary(salaryAfterBaseTax);
+    return lowerSalary + midSalary * 0.5 + upperSalary * 0.3;
   };
 
   // src/components/Card/Card.tsx
@@ -20572,14 +20581,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
 
   // src/components/FormSubmitButton/FormSubmitbutton.tsx
   var import_react4 = __toESM(require_react());
-  var FormSubmitButton = ({
-    children,
-    testId,
-    className
-  }) => {
+  var FormSubmitButton = ({ children, testId }) => {
     return /* @__PURE__ */ import_react4.default.createElement("input", {
+      className: "form-submit primary",
       type: "submit",
-      className,
+      title: "skicka",
       "data-test-id": testId,
       value: children
     });
@@ -20590,7 +20596,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const [state, dispatch] = (0, import_react5.useReducer)(formReducer, initialState);
     const { salaryAfterTaxes } = state;
     return /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement("form", {
-      className: "mdc-typography",
       name: "payroll-form",
       onSubmit: (e) => {
         e.preventDefault();
@@ -20609,7 +20614,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       entityKey: "experience",
       type: "number",
       testId: "experience" /* Experience */,
-      name: "Erfarenhet"
+      name: "Erfarenhet",
+      placeHolder: "\xC5rs erfarenhet"
     }), /* @__PURE__ */ import_react5.default.createElement(DropDown, {
       className: "city-input",
       onChange: dispatch,
@@ -20625,7 +20631,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       name: "Inkomst\xE5r",
       testId: "income-year" /* IncomeYear */
     }), /* @__PURE__ */ import_react5.default.createElement(FormSubmitButton, {
-      className: "form-submit primary",
       testId: "form-submit" /* FormSubmit */
     }, "Ber\xE4kna")), /* @__PURE__ */ import_react5.default.createElement(Card, {
       title: "L\xF6n efter skatt",
@@ -20634,9 +20639,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
 
   // src/App.tsx
-  console.info("Deployed from CI");
   var App = () => {
-    return /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("main", null, /* @__PURE__ */ import_react6.default.createElement("h1", null, "L\xF6neber\xE4knaren"), /* @__PURE__ */ import_react6.default.createElement(Form, null)), /* @__PURE__ */ import_react6.default.createElement("footer", null, "Olof Lindell"));
+    return /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("main", null, /* @__PURE__ */ import_react6.default.createElement("h1", null, "L\xF6neber\xE4knaren"), /* @__PURE__ */ import_react6.default.createElement(Form, null)));
   };
   document.addEventListener("DOMContentLoaded", () => {
     (0, import_react_dom.render)(/* @__PURE__ */ import_react6.default.createElement(App, null), document.querySelector("#root"));
