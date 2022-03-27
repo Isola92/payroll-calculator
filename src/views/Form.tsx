@@ -31,7 +31,7 @@ export const Form = () => {
 
         <Input
           className="experience-input"
-          onKeyUp={dispatch}
+          onChange={dispatch}
           entityKey="experience"
           type="number"
           testId={TestId.Experience}

@@ -56,6 +56,4 @@ Can't start cypress? I'm on Windows right now so I had to set the path to the cy
 
 - Make the page look good :)
 
-- Ensure unit tests aren't included in the bundle.
-
 - Format decimals when presenting the value.

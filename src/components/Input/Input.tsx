@@ -1,9 +1,9 @@
-import React, { KeyboardEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { FormAction } from "../../definitions/Actions";
 import { FormEntity } from "../../definitions/Entity";
 
 interface InputProps extends FormEntity {
-  onKeyUp: (actionData: FormAction) => void;
+  onChange: (actionData: FormAction) => void;
   type: string;
   className: string;
   placeHolder: string;
@@ -11,7 +11,7 @@ interface InputProps extends FormEntity {
 
 export const Input = ({
   entityKey,
-  onKeyUp,
+  onChange,
   type = "text",
   testId,
   className,
@@ -22,8 +22,8 @@ export const Input = ({
     <input
       type={type}
       className={className}
-      onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
-        onKeyUp({
+      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        onChange({
           type: "VALUE_CHANGED",
           entity: entityKey,
           value: e.currentTarget.value,

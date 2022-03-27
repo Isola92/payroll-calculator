@@ -4,7 +4,7 @@
   "description": "A basic app where the user can fill in information about their profession and employment in a form and then see what their salary will be after taxes.",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js",
+    "build": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js --minify",
     "dev": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js --servedir=./  --sourcemap",
     "cypress-open": "node_modules\\.bin\\cypress open",
     "cypress-run": "node_modules\\.bin\\cypress run",
