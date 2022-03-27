@@ -1,5 +1,7 @@
 # Payroll Calculator
 
+[![Node.js CI](https://github.com/Isola92/payroll-calculator/actions/workflows/node.js.yml/badge.svg)](https://github.com/Isola92/payroll-calculator/actions/workflows/node.js.yml)
+
 ## Hosting
 
 Available through GitHub Pages [here](https://isola92.github.io/payroll-calculator/).
