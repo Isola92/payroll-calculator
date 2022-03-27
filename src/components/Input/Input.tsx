@@ -6,6 +6,7 @@ interface InputProps extends FormEntity {
   onKeyUp: (actionData: FormAction) => void;
   type: string;
   className: string;
+  placeHolder: string;
 }
 
 export const Input = ({
@@ -14,6 +15,8 @@ export const Input = ({
   type = "text",
   testId,
   className,
+  placeHolder,
+  name,
 }: InputProps) => {
   return (
     <input
@@ -26,8 +29,8 @@ export const Input = ({
           value: e.currentTarget.value,
         });
       }}
-      placeholder="Års erfarenhet"
-      name={entityKey}
+      placeholder={placeHolder}
+      aria-label={name}
       required={true}
       data-test-id={testId}
     ></input>

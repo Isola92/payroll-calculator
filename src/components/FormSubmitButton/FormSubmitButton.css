@@ -1,0 +1,14 @@
+.primary {
+  background-color: var(--primary-button-color);
+}
+
+.form-submit {
+  grid-area: form-submit;
+  height: 2em;
+  border-radius: 5px;
+  border: none;
+  font-family: inherit;
+  font-weight: 600;
+  width: 125px;
+  justify-self: center;
+}

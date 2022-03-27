@@ -5,6 +5,7 @@ import { formReducer, initialState } from "../reducers/formReducer";
 import { Card } from "../components/Card/Card";
 import { TestId } from "../constants/TestId";
 import { FormSubmitButton } from "../components/FormSubmitButton/FormSubmitbutton";
+import "./Form.css";
 
 export const Form = () => {
   const [state, dispatch] = useReducer(formReducer, initialState);
@@ -13,7 +14,6 @@ export const Form = () => {
   return (
     <>
       <form
-        className="mdc-typography"
         name="payroll-form"
         onSubmit={(e) => {
           e.preventDefault();
@@ -36,6 +36,7 @@ export const Form = () => {
           type="number"
           testId={TestId.Experience}
           name="Erfarenhet"
+          placeHolder="Års erfarenhet"
         />
 
         <DropDown
@@ -55,12 +56,7 @@ export const Form = () => {
           testId={TestId.IncomeYear}
         />
 
-        <FormSubmitButton
-          className="form-submit primary"
-          testId={TestId.FormSubmit}
-        >
-          Beräkna
-        </FormSubmitButton>
+        <FormSubmitButton testId={TestId.FormSubmit}>Beräkna</FormSubmitButton>
       </form>
 
       <Card

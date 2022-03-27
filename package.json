@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js",
-    "dev": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js --servedir=./bin  --sourcemap",
+    "dev": "esbuild ./src/App.tsx --bundle --outfile=./bin/app.js --servedir=./  --sourcemap",
     "cypress-open": "node_modules\\.bin\\cypress open",
     "cypress-run": "node_modules\\.bin\\cypress run",
     "cypress-run-nonwindows": "node_modules/.bin/cypress run",

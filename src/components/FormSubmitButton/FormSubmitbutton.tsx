@@ -1,21 +1,17 @@
 import React from "react";
 import { TestId } from "../../constants/TestId";
-
+import "./FormSubmitButton.css";
 interface Props {
-  className: string;
   testId: TestId;
   children?: string;
 }
 
-export const FormSubmitButton: React.FC<Props> = ({
-  children,
-  testId,
-  className,
-}) => {
+export const FormSubmitButton: React.FC<Props> = ({ children, testId }) => {
   return (
     <input
+      className="form-submit primary"
       type="submit"
-      className={className}
+      title="skicka"
       data-test-id={testId}
       value={children}
     ></input>

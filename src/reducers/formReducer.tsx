@@ -1,9 +1,9 @@
-import { splitSalary } from "../data/TransactionTierMaxValues";
-import { getSalaryIncreaseRate, SALARY_RATES } from "../data/SalaryRates";
-import { TAXATION_RATES } from "../data/TaxationRates";
+import { SALARY_RATES } from "../constants/SalaryRates";
+import { TAXATION_RATES } from "../constants/TaxationRates";
 import { FormActions } from "../definitions/Actions";
-import { Profession } from "../data/Profession";
-import { City, IncomeYear } from "../data/TaxationRate";
+import { Profession } from "../definitions/Profession";
+import { City, IncomeYear } from "../definitions/TaxationRate";
+import { SalaryHelper } from "../helpers/SalaryHelper";
 
 export const initialState: FormState = {
   experience: 6,
@@ -56,12 +56,12 @@ export const calculateSalaryAfterTaxes = (
   experience: number
 ) => {
   const taxationRate = TAXATION_RATES[city][year];
-  const salaryRate = SALARY_RATES[profession];
-  const salaryIncreaseRate = getSalaryIncreaseRate(experience);
-  const salary = salaryRate * salaryIncreaseRate;
-  const [baseSalary, midSalary, upperSalary] = splitSalary(salary);
+  const baseSalary = SALARY_RATES[profession];
+  const salaryIncreaseRate = SalaryHelper.getSalaryIncreaseRate(experience);
+  const salary = baseSalary * salaryIncreaseRate;
+  const salaryAfterBaseTax = salary * (1 - taxationRate);
+  const [lowerSalary, midSalary, upperSalary] =
+    SalaryHelper.splitSalary(salaryAfterBaseTax);
 
-  return Math.round(
-    baseSalary * (1 - taxationRate) + midSalary * 0.5 + upperSalary * 0.7
-  );
+  return lowerSalary + midSalary * 0.5 + upperSalary * 0.3;
 };

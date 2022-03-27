@@ -1,0 +1,33 @@
+:root {
+  --primary-background-color: #121212;
+  --primary-button-color: #c38fff;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: var(--primary-background-color);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+main {
+  max-width: 500px;
+  margin: 0 auto;
+  color: white;
+  padding: 3em;
+  border-radius: 5px;
+  border: 1px solid white;
+  opacity: 0.87;
+}
+
+@media screen and (max-width: 500px) {
+  main {
+    padding: 1em;
+    margin-bottom: var(--max-width-mobile-layout);
+  }
+}

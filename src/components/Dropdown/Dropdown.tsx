@@ -22,7 +22,7 @@ export const DropDown = ({
   return (
     <select
       className={`drop-down ${className}`}
-      name={entityKey}
+      aria-label={name}
       data-test-id={testId}
       onChange={(e: ChangeEvent<HTMLSelectElement>) => {
         onChange({
